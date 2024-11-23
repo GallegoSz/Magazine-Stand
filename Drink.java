@@ -1,8 +1,8 @@
 class Drink extends Products{
     private String type;
 
-    public Drink(int cod, String name, String type) {
-        super(cod, name);
+    public Drink(int code, String name, String type, double price) {
+        super(name, price);
         this.type = type;
     }
 

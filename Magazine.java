@@ -1,8 +1,8 @@
 class Magazine extends Products{
     private String publisher;
 
-    public Magazine(int cod, String name, String publisher) {
-        super(cod, name);
+    public Magazine(String name, String publisher, double price) {
+        super(name, price);
         this.publisher = publisher;
     }
 

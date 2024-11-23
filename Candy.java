@@ -1,8 +1,8 @@
 class Candy extends Products {
     private String brand;
 
-    public Candy(int cod, String name, String brand) {
-        super(cod, name);
+    public Candy(String name, String brand, double price) {
+        super(name, price);
         this.brand = brand;
     }
 
