@@ -4,6 +4,7 @@ class Magazine extends Products{
     public Magazine(String name, String publisher, double price) {
         super(name, price);
         this.publisher = publisher;
+        setPrice(price);
     }
 
     public String getPublisher() {

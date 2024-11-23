@@ -1,9 +1,10 @@
 class Drink extends Products{
     private String type;
 
-    public Drink(int code, String name, String type, double price) {
+    public Drink(String name, String type, double price) {
         super(name, price);
         this.type = type;
+        setPrice(price);
     }
 
     public String getType() {

@@ -12,8 +12,7 @@ public class MagazineStand {
             response = JOptionPane.showInputDialog("\nWhat would you like to do? (Enter only numbers)" +
                     "\n1 - Show stock products" +
                     "\n2 - Add product to stock" +
-                    "\n3 - Remove a product from stock" +
-                    "\n0 - Exit");
+                    "\n3 - Remove a product from stock");
 
             if (response == null) {
                 if (confirmExit()) {
@@ -57,21 +56,48 @@ public class MagazineStand {
                     productsList.append(" (Candy\n Name: ").append(candy.getName()).append("\nBrand: ")
                             .append(candy.getBrand()).append("\nPrice: ").append(candy.getPrice()).append(" )");
                 } else if (product instanceof Drink drink) {
-                    productsList.append(" Drink\n Name: ").append(drink.getName()).append("\nType: ")
+                    productsList.append(" (Drink\n Name: ").append(drink.getName()).append("\nType: ")
                             .append(drink.getName()).append("\nPrice: ").append(drink.getPrice()).append(" )");
                 } else if (product instanceof Magazine magazine) {
-                    productsList.append(" Magazine\n Name: ").append(magazine.getName()).append("\nPublisher: ")
-                            .append(magazine.getPublisher()).append("\nPrice: ").append(magazine.getPrice()).append(" )");
+                    productsList.append(" (Magazine\n Name: ").append(magazine.getName()).append("\nPublisher: ")
+                            .append(magazine.getPublisher()).append("\nPrice: R$").append(magazine.getPrice()).append(" )");
                 }
-                productsList.append("\n");
+                productsList.append("\n\n");
             }
             JOptionPane.showMessageDialog(null, productsList.toString());
         }
     }
 
     private static void addProduct(ArrayList<Products> stock) {
-        String productInserted = options();
-        StringBuilder product = new StringBuilder("Add products:\n");
+        String type = JOptionPane.showInputDialog(null, "Enter the type of product to add (candy, drink, magazine):");
+        if (type == null) {
+            if (confirmExit()) {
+                return;
+            }
+            return;
+        }
+        switch (type.toLowerCase()) {
+            case "candy":
+                String name = JOptionPane.showInputDialog("Enter the candy name:");
+                String brand = JOptionPane.showInputDialog("Enter with the brand:");
+                double price = Double.parseDouble(JOptionPane.showInputDialog("Enter the price of " + name + ":"));
+                stock.add(new Candy(name, brand, price));
+                break;
+            case "drink":
+                name = JOptionPane.showInputDialog("Enter the drink name:");
+                type = JOptionPane.showInputDialog("enter the type of drink:");
+                price = Double.parseDouble(JOptionPane.showInputDialog("Enter the price of " + name + ":"));
+                stock.add(new Drink(name, type, price));
+                break;
+            case "magazine":
+                name = JOptionPane.showInputDialog("Enter the magazine name:");
+                String publisher = JOptionPane.showInputDialog(name + " publisher:");
+                price = Double.parseDouble(JOptionPane.showInputDialog("Enter the price of " + name + ":"));
+                stock.add(new Magazine(name, publisher, price));
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid product type!");
+        }
 
     }
 
@@ -83,33 +109,5 @@ public class MagazineStand {
         int confirmExit = JOptionPane.showConfirmDialog(null, "Do you want to exit the program?",
                 "Confirm Exit", JOptionPane.YES_NO_OPTION);
         return confirmExit == JOptionPane.YES_NO_OPTION;
-    }
-
-    public static String options() {
-        String[] validWords = {"candy", "drink", "magazine"};
-        boolean isValid = false;
-        String input = null;
-
-        while (!isValid) {
-            input = JOptionPane.showInputDialog(null, "Enter one of the accepted words" +
-                    "\ncandy, drink or magazine");
-
-            if (input != null) {
-                for (String word : validWords) {
-                    if (input.equalsIgnoreCase(word)) {
-                        isValid = true;
-                        break;
-                    }
-                }
-                if (!isValid) {
-                    JOptionPane.showMessageDialog(null, "Invalid word. Please try again.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Entry cancelled. Leaving the program.");
-                System.exit(0);
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Word accepted! Continuing...");
-        return input;
     }
 }

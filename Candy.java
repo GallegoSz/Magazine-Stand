@@ -4,6 +4,7 @@ class Candy extends Products {
     public Candy(String name, String brand, double price) {
         super(name, price);
         this.brand = brand;
+        setPrice(price);
     }
 
     public String getBrand() {
